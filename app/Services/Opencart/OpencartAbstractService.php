@@ -16,7 +16,7 @@ abstract class OpencartAbstractService
 
         $response = Http::asForm()
             ->post(
-                MegasoftConstants::URL.$endpoint,
+                OpencartConstants::getOpencartUrl() . $endpoint,
                 $params
             );
 
@@ -58,7 +58,7 @@ abstract class OpencartAbstractService
             ])
             ->send(
                 'POST',
-                OpencartConstants::getOpencartUrl() . '/' . $endpoint,
+                OpencartConstants::getOpencartUrl() . $endpoint,
                 ['body' => $data]
             )
         ;

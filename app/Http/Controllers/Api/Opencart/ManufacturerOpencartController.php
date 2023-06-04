@@ -10,7 +10,7 @@ use App\Services\Opencart\ManufacturersService;
 class ManufacturerOpencartController extends Controller
 {
     
-    private static string $endpoint = 'prismaManufacturers';
+    private static string $endpoint = '/prismaManufacturers';
 
     protected ManufacturersService $manufacturersService;
 
