@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
-use Illuminate\Support\MessageBag;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -14,21 +13,20 @@ class LoginController extends Controller
     {
         $title = 'Webout Services | Dashboard';
 
-
         return view('auth.login',
             [
-                'title' => $title
+                'title' => $title,
             ]
         );
     }
 
     public function login(LoginRequest $request)
-    {   
+    {
 
         $credentials = $request->getCredentials();
 
-        if(!Auth::validate($credentials)){
-            
+        if (! Auth::validate($credentials)) {
+
             return redirect()->back()->withErrors('Unauthorized: Invalid credentials.');
         }
 
@@ -39,7 +37,7 @@ class LoginController extends Controller
         return $this->authenticated($request, $user);
     }
 
-    protected function authenticated(Request $request, $user) 
+    protected function authenticated(Request $request, $user)
     {
         return redirect()->intended();
     }
@@ -47,11 +45,11 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-    
+
         $request->session()->invalidate();
-    
+
         $request->session()->regenerateToken();
-    
+
         return redirect('/');
     }
 }

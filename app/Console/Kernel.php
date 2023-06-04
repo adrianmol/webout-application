@@ -10,12 +10,12 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('app:manufacturers')->everyFiveMinutes();
+        $schedule->command('app:manufacturers')->everyFiveMinutes()->emailOutputTo('adrian.mol@hotmail.com');
+        $schedule->command('app:products 01-01-2023')->everyFiveMinutes()->emailOutputTo('adrian.mol@hotmail.com');
     }
 
     /**

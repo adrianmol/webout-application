@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->integer('erp_id')->unique();
-            $table->integer('parent_id');
+            $table->integer('erp_category_id')->unique();
+            $table->integer('parent_id')->default(0)->index();
             $table->integer('sort_order')->default(0);
             $table->tinyInteger('status')->default(0);
             $table->timestamps();

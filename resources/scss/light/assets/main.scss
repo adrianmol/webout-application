@@ -4642,3 +4642,17 @@ fieldset:disabled .btn {
 .position-relative {
   position: relative;
 }
+
+.spinner-border {
+  --bs-spinner-width: 1rem;
+  --bs-spinner-height: 1rem;
+}
+
+#product-list .table tbody tr td {
+  white-space: inherit;
+}
+
+.form-switch .form-check-input:checked {
+  background-color: #4361ee;
+  border-color: #4361ee;
+}

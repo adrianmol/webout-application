@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Category;
-use Illuminate\Pagination\Paginator;
+use Illuminate\Http\Request;
 
 class CategoriesDashboardController extends Controller
 {
@@ -15,6 +14,6 @@ class CategoriesDashboardController extends Controller
 
         $categories = Category::paginate($perPage)->setPath('categories');
 
-        return view('pages.category.index', [ 'categories' => $categories]);
+        return view('pages.category.index', ['categories' => $categories]);
     }
 }

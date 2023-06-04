@@ -11,13 +11,14 @@
         @vite(['resources/scss/light/assets/elements/alert.scss'])
         <link rel="stylesheet" href="{{asset('plugins/notification/snackbar/snackbar.min.css')}}">
         @vite(['resources/scss/light/plugins/notification/snackbar/custom-snackbar.scss'])
-        
+        @vite(['resources/rtl/scss/light/plugins/loaders/custom-loader.scss'])
+
         <!--  END CUSTOM STYLE FILE  -->
     </x-slot>
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <x-slot:scrollspyConfig>
-        data-bs-spy="scroll" data-bs-target="#navSection" data-bs-offset="100"
+
     </x-slot>
     
     <x-slot:sideBar>
@@ -44,8 +45,10 @@
     <!-- /BREADCRUMB -->
     <div class="col-12 d-flex justify-content-sm-end justify-content-center">
         <div class="" id="erp-result"></div>
-        <button class="btn btn-primary mb-2 me-4" id="getManufacuters">Get manufacturers (ERP)</button>
+        <button class="btn btn-primary mb-2 me-4" id="getManufacuters"> Get manufacturers (ERP)</button>
         {{-- <button class="btn btn-secondary mb-2 me-4">Secondary</button>    --}}
+
+
     </div>
     <div class="row layout-top-spacing">
 
@@ -57,6 +60,9 @@
                 <div class="widget-content widget-content-area">
                     <div class="row">
                         <div class="col-12 col-sm-6 d-flex justify-content-sm-start justify-content-center">
+                            <div class="d-flex align-items-center mb-2 me-4">
+                                Page: {{$manufacturers->currentPage()}} Total items: {{$manufacturers->total()}} 
+                            </div>
                             <div class="btn-group  mb-2 me-4" role="group">
                                 <button id="btndefault6" type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Items per page ({{$manufacturers->perPage()}}) <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
                                 <div class="dropdown-menu" aria-labelledby="btndefault6">
@@ -79,7 +85,8 @@
                                             <input class="form-check-input" id="striped_parent_all" type="checkbox">
                                         </div>
                                     </th>
-                                    <th scope="col">erp id</th>
+                                    <th scope="col">id</th>
+                                    <th scope="col">erp manufacturer id</th>
                                     <th scope="col">name</th>
                                     <th class="text-center" scope="col">code</th>
                                     <th class="text-center" scope="col">date modified</th>
@@ -94,7 +101,8 @@
                                             <input class="form-check-input striped_child" type="checkbox">
                                         </div>
                                     </td>
-                                    <td>{{$manufacturer->erp_id}}</td>
+                                    <td>{{$manufacturer->id}}</td>
+                                    <td>{{$manufacturer->erp_manufacturer_id}}</td>
                                     <td>
                                         <span class="table-inner-text">{{$manufacturer->name}}</span>
                                     </td>
@@ -146,7 +154,7 @@
         <script src="{{asset('plugins/notification/snackbar/snackbar.min.js')}}"></script>
         {{-- <script src="{{asset('plugins/notification/snackbar/snackbar.min.js')}}"></script> --}}
         @vite(['resources/assets/js/components/notification/custom-snackbar.js'])
-        @vite(['resources/assets/js/dashboard/getFromErp.js'])
+        @vite(['resources/assets/js/dashboard/get_manufacturers.js'])
     </x-slot>
     <!--  END CUSTOM SCRIPTS FILE  -->
 </x-base-layout>

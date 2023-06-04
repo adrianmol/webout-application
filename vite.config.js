@@ -83,7 +83,7 @@ export default defineConfig({
                 // --- Authentication
                 'resources/scss/light/assets/authentication/auth-boxed.scss',
                 'resources/scss/light/assets/authentication/auth-cover.scss',
-
+                'resources/scss/light/assets/authentication/main.scss',
                 
                 // --- Componenets
                 'resources/scss/light/assets/components/accordions.scss',
@@ -99,6 +99,8 @@ export default defineConfig({
                 // --- Dashbaord
                 'resources/scss/light/assets/dashboard/dash_1.scss',
                 'resources/scss/light/assets/dashboard/dash_2.scss',
+                'resources/assets/js/dashboard/get_manufacturers.js',
+                'resources/assets/js/dashboard/get_categories.js',
                 
                 // --- Elements
                 'resources/scss/light/assets/elements/alert.scss',

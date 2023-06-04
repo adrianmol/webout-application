@@ -1,70 +1,70 @@
-<?php 
+<?php
 
 namespace App\Services\Erp\Megasoft;
 
-use Illuminate\Support\Facades\Http;
 use App\Constants\Erp\Megasoft\MegasoftConstants;
-use App\Models\Category;
-use App\Models\CategoryDescription;
+use App\Repositories\CategoriesRepository;
 
-class CategoriesServices
+class CategoriesServices extends MegasoftAbstract
 {
-    public function getCategories(string $endpoint, string $date = ''): ?array
+    private CategoriesRepository $categoryRepository;
+
+    public function __construct(
+        CategoriesRepository $categoryRepository
+    ) {
+        $this->categoryRepository = $categoryRepository;
+    }
+
+    public function createOrUpdateCategories(string $endpoint): ?array
     {
-        $paramForm           = array();
-        $prepareCategories   = array();
-        $prepareCategoryDescription = array();
+        $paramForm = [];
+        $createdCategories = [];
+        $updatedCategories = [];
 
         $paramForm = [
-            'SiteKey' =>MegasoftConstants::SITE_KEY 
+            'SiteKey' => MegasoftConstants::SITE_KEY,
         ];
 
-        $response = Http::asForm()
-        ->post(
-            MegasoftConstants::URL . $endpoint,
-            $paramForm
-        );
-        
-        if(!$response->ok()){
-            return [];
+        $categoriesMegasoft = $this->getData($endpoint, $paramForm, 'GroupsListItems');
+
+        if (! $categoriesMegasoft->count()) {
+            return [
+                'updated' => $updatedCategories,
+                'created' => $createdCategories,
+            ];
         }
 
-        $categories = collect(json_decode(json_encode((array)simplexml_load_string($response->body())),true)['GroupsListItems']);
+        $categoriesMegasoft->each(function ($categoryMegasoft) use (
+            &$updatedCategories,
+            &$createdCategories
+        ) {
+            if ($categoryMegasoft['eShop']) {
 
-        if(empty($categories)){
-            return [];
-        }
+                $validCategory = $this->categoryRepository->prepareCategory($categoryMegasoft);
+                $validCategoryDescription = $this->categoryRepository->prepareCategoryDescription($categoryMegasoft);
 
-        $categories->each(function($categories) use (&$prepareCategories, &$prepareCategoryDescription, &$insertOrUpdateCategory){
+                if (
+                    $this->categoryRepository
+                        ->getCategoryByErpCategoryId($validCategory->get('erp_category_id'))
+                ) {
+                    $updatedCategories[] = $this->categoryRepository->updateCategoryAndDescription(
+                        $validCategory->get('erp_category_id'),
+                        $validCategory,
+                        $validCategoryDescription
+                    );
+                } else {
 
-            if($categories['eShop']){
-
-                $cat = new Category();
-                $prepareCategories[] = $cat;
-                
-                $cat->erp_id = $categories['Id'];
-                $cat->parent_id = !empty($categories['GroupId']) ? $categories['GroupId'] : 0;
-                $cat->status = isset($categories['Disable']) && $categories['Disable'] == 'False' ? 0 : 1;
-                $cat->sort_order = $categories['Sort'];
-
-                $cat->save();
-                $categoryDescription = new CategoryDescription();
-
-                $categoryDescription->language_id  = 1;
-                $categoryDescription->name         = $categories['Description'];
-                $categoryDescription->code         = $categories['Code'];
-
-                
-                $cat->description()
-                ->save($categoryDescription);
-
+                    $createdCategories[] = $this->categoryRepository->createCategoryAndDescription(
+                        $validCategory,
+                        $validCategoryDescription
+                    );
+                }
             }
         });
 
-        
-        
-        //CategoryDescription::upsert($prepareCategories,['erp_id']);
-
-        return $prepareCategories;
+        return [
+            'updated' => $updatedCategories,
+            'created' => $createdCategories,
+        ];
     }
 }

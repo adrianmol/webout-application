@@ -8,7 +8,6 @@
     <x-slot:headerFiles :noHeader=true>
         <!--  BEGIN CUSTOM STYLE FILE  -->
         @vite(['resources/scss/light/assets/authentication/auth-boxed.scss'])
-        @vite(['resources/scss/dark/assets/authentication/auth-boxed.scss'])
         <!--  END CUSTOM STYLE FILE  -->
     </x-slot>
     <!-- END GLOBAL MANDATORY STYLES -->

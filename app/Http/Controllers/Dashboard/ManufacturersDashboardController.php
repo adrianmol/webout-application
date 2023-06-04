@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Manufacturer;
-use Illuminate\Pagination\Paginator;
+use Illuminate\Http\Request;
 
 class ManufacturersDashboardController extends Controller
 {
@@ -14,6 +13,6 @@ class ManufacturersDashboardController extends Controller
         $perPage = $request->get('perPage') ?? 25;
         $manufacturers = Manufacturer::paginate($perPage)->setPath('manufacturers');
 
-        return view('pages.manufacturer.index', [ 'manufacturers' => $manufacturers]);
+        return view('pages.manufacturer.index', ['manufacturers' => $manufacturers]);
     }
 }

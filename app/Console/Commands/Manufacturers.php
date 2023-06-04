@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Services\Erp\Megasoft\ManufacturersServices;
+use Illuminate\Console\Command;
 
 class Manufacturers extends Command
 {
@@ -27,9 +27,9 @@ class Manufacturers extends Command
     public function handle()
     {
         $endpointManufacturers = '/GetManufacturers';
-        
+
         $manufacturersServices = new ManufacturersServices();
         $response = $manufacturersServices->getManufacturers($endpointManufacturers);
-        echo ( 'Updated items: ' . count($response));
+        echo  'Updated items: '.count($response);
     }
 }

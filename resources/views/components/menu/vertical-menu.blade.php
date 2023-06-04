@@ -58,7 +58,15 @@
                     <li class="menu menu-heading">
                         <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg><span>{{__("Catalog")}}</span></div>
                     </li>
-                    <li class="menu {{ Request::routeIs('dashboard.categories.index') ? 'active' : '' }}"">
+                    <li class="menu {{ Request::routeIs('dashboard.product.index') ? 'active' : '' }}"">
+                        <a href="/dashboard/products" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>                                
+                                <span>Products</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu {{ Request::routeIs('dashboard.category.index') ? 'active' : '' }}"">
                         <a href="/dashboard/categories" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>                                
@@ -66,11 +74,22 @@
                             </div>
                         </a>
                     </li>
-                    <li class="menu {{ Request::routeIs('dashboard.manufacturers.index') ? 'active' : '' }}"">
+                    <li class="menu {{ Request::routeIs('dashboard.manufacturer.index') ? 'active' : '' }}"">
                         <a href="/dashboard/manufacturers" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>                                
                                 <span>Manufacturers</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu menu-heading">
+                        <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg><span>{{__("Settings")}}</span></div>
+                    </li>
+                    <li class="menu {{ Request::routeIs('dashboard.settings.index') ? 'active' : '' }}"">
+                        <a href="/dashboard/settings" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>                                
+                                <span>Settings</span>
                             </div>
                         </a>
                     </li>

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('manufacturers', function (Blueprint $table) {
             $table->id();
-            $table->integer('erp_id')->unique();
+            $table->integer('erp_manufacturer_id')->unique();
             $table->string('name', 100);
             $table->string('code', 50)->nullable();
             $table->timestamps();

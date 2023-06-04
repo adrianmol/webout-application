@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules;
 
 class LoginRequest extends FormRequest
 {
@@ -21,7 +20,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'username' => 'required',
-            'password' => 'required'
+            'password' => 'required',
         ];
     }
 
@@ -32,11 +31,9 @@ class LoginRequest extends FormRequest
 
         return [
             'username' => $username,
-            'password' => $this->get('password')
+            'password' => $this->get('password'),
         ];
-        
 
         return $this->only('username', 'password');
     }
-
 }

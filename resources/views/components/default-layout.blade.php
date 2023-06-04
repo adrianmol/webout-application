@@ -22,13 +22,7 @@
     
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/bootstrap/bootstrap.min.css')}}">
-    @vite(['resources/scss/light/assets/main.scss', 'resources/scss/dark/assets/main.scss'])
-
-    @vite([
-        'resources/scss/layouts/modern-light-menu/light/structure.scss',
-        'resources/scss/layouts/modern-light-menu/dark/structure.scss',
-    ])
-        
+    @vite(['resources/scss/light/assets/main.scss', 'resources/scss/layouts/modern-light-menu/light/structure.scss'])
     
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     {{$headerFiles}}
