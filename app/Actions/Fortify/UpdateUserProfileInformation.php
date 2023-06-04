@@ -9,7 +9,6 @@ use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 {
-
     public function update($user, array $input)
     {
         Validator::make($input, [
@@ -34,7 +33,6 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             ])->save();
         }
     }
-
 
     protected function updateVerifiedUser($user, array $input)
     {

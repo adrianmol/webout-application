@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Dashboard\ProductsDashboardController;
 use App\Http\Controllers\Dashboard\CategoriesDashboardController;
 use App\Http\Controllers\Dashboard\ManufacturersDashboardController;
+use App\Http\Controllers\Dashboard\ProductsDashboardController;
 use App\Http\Controllers\Dashboard\SettingsDashboardController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Erp\Megasoft\CategoriesController;

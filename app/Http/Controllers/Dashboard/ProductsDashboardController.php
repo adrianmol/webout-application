@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Models\Product;
-use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 
 class ProductsDashboardController extends Controller
@@ -20,30 +20,30 @@ class ProductsDashboardController extends Controller
     }
 
     public function show($id)
-    {   
+    {
 
         $product = Product::whereId($id)->first();
         $title = $product->descriptions()->first()->name ?? 'Not found';
 
         $category = Category::find($product->id)->first();
-        
-        return view('pages.product.show', 
-        [
-            'product' => $product,
-            'category'=> $category,
-            'title'   => $title
-        ]);
+
+        return view('pages.product.show',
+            [
+                'product' => $product,
+                'category' => $category,
+                'title' => $title,
+            ]);
     }
 
     public function runProductsErpJob(Request $request)
-    {   
+    {
 
         Artisan::queue('app:products 2023-01-01');
-        
+
         return response()->json(
-        [
-            'request' => $request->all(),
-            'message' => 'The product process has started',
-        ]);
+            [
+                'request' => $request->all(),
+                'message' => 'The product process has started',
+            ]);
     }
 }

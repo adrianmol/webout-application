@@ -16,7 +16,7 @@ abstract class OpencartAbstractService
 
         $response = Http::asForm()
             ->post(
-                OpencartConstants::getOpencartUrl() . $endpoint,
+                OpencartConstants::getOpencartUrl().$endpoint,
                 $params
             );
 
@@ -54,14 +54,13 @@ abstract class OpencartAbstractService
         $response = Http::asForm()
             ->withHeaders([
                 'X-OC-RESTADMIN-ID' => OpencartConstants::getOpencartTokenKey(),
-                'Content-Type'      => 'application/json'
+                'Content-Type' => 'application/json',
             ])
             ->send(
                 'POST',
-                OpencartConstants::getOpencartUrl() . $endpoint,
+                OpencartConstants::getOpencartUrl().$endpoint,
                 ['body' => $data]
-            )
-        ;
+            );
 
         if (! $response->ok()) {
             return collect();

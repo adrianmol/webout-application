@@ -14,7 +14,7 @@ class DashboardController extends Controller
         //Artisan::queue('app:products 2022-01-01');
         // $manufacturers = Manufacturer::with('products')->where('erp_manufacturer_id', 199)->get();
         // dd($manufacturers);
-        
+
         $title = 'Webout Services | Dashboard';
         //dd(Auth::user());
         return view('dashboard', ['title' => $title]);

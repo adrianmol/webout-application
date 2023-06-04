@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\Opencart\CategoryOpencartController;
+use App\Http\Controllers\Api\Opencart\ManufacturerOpencartController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Api\Opencart\ManufacturerOpencartController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,6 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::get('/opencart/manufacturers', [ManufacturerOpencartController::class, 'index'])
- ->name('api.opencart.manufacturers.index');
+    ->name('api.opencart.manufacturers.index');
+
+Route::get('/opencart/categories', [CategoryOpencartController::class, 'index'])
+    ->name('api.opencart.category.index');

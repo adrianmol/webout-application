@@ -10,31 +10,26 @@ class OpencartConstants
 
     public const TOKEN_KEY = 'store.key';
 
-
     public static function getOpencartUrl()
     {
 
         $storeUrl = Setting::where('key', self::STORE_URL)?->get('value')?->first()?->value;
 
-        if(!isset($storeUrl))
-        {
+        if (! isset($storeUrl)) {
             throw new \Exception('No initialized store data');
         }
 
         return $storeUrl;
-    } 
+    }
 
     public static function getOpencartTokenKey()
     {
         $storeKey = Setting::where('key', self::TOKEN_KEY)?->get('value')?->first()?->value;
 
-        if(!isset($storeKey))
-        {
+        if (! isset($storeKey)) {
             throw new \Exception('No initialized store data');
         }
 
         return $storeKey;
-    } 
-
-
+    }
 }
