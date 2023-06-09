@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Opencart;
 
 use App\Http\Controllers\Controller;
-use App\Services\Opencart\ManufacturersService;
+use App\Services\Store\Opencart\ManufacturersService;
 
 class ManufacturerOpencartController extends Controller
 {

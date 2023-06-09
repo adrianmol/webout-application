@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImages;
 use App\Utils\Util;
 use Illuminate\Support\Collection;
 
@@ -73,9 +74,15 @@ class ProductsRepository
             'price' => Util::isEmpty($productsDetails['ItemRetail']),
             'weight' => Util::isEmpty($productsDetails['ItemWeight']),
             'status' => 1,
-            'created_at' => \DateTime::createFromFormat('d/m/Y  H:i:s A', $productsDetails['ItemDateCreated'])->format('Y-m-d H:m:s'),
-            'updated_at' => \DateTime::createFromFormat('d/m/Y  H:i:s A', $productsDetails['ItemDateModified'])->format('Y-m-d H:m:s'),
+            'created_at' => \DateTime::createFromFormat('m/d/Y  H:i:s A', $productsDetails['ItemDateCreated'])->format('Y-m-d H:m:s'),
+            'updated_at' => \DateTime::createFromFormat('m/d/Y  H:i:s A', $productsDetails['ItemDateModified'])->format('Y-m-d H:m:s'),
         ]);
+    }
+
+    public function createProductImages(int $productId, array $productsDetails)
+    {
+
+        return ProductImages::createOrUpdate($productId, $productsDetails);
     }
 
     public function prepareProductDescription(int $languageId, array $productsDetails)

@@ -14,12 +14,12 @@ class ManufacturersServices
         $prepareManufacturer = [];
 
         $paramForm = [
-            'SiteKey' => MegasoftConstants::SITE_KEY,
+            'SiteKey' => MegasoftConstants::getMegasoftSiteKey(),
         ];
 
         $response = Http::asForm()
             ->post(
-                MegasoftConstants::URL.$endpoint,
+                MegasoftConstants::getMegasoftUrl().$endpoint,
                 $paramForm
             );
 

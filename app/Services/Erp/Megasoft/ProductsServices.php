@@ -23,7 +23,7 @@ class ProductsServices extends MegasoftAbstract
         $updatedProducts = [];
 
         $paramForm = [
-            'SiteKey' => MegasoftConstants::SITE_KEY,
+            'SiteKey' => MegasoftConstants::getMegasoftSiteKey(),
             'StorageCode' => '000',
             'Date' => $date,
         ];
@@ -69,5 +69,23 @@ class ProductsServices extends MegasoftAbstract
             'updated' => $updatedProducts,
             'created' => $createdProducts,
         ];
+    }
+
+    public function getProductImages(string $endpoint, string $date = null): ?array
+    {
+        $date = $date ?: date('m-d-Y H:m', strtotime('-4 hours'));
+        $paramForm = [];
+        $createdProducts = [];
+        $updatedProducts = [];
+
+        $paramForm = [
+            'SiteKey' => MegasoftConstants::getMegasoftSiteKey(),
+            'StorageCode' => '000',
+            'Date' => $date,
+        ];
+
+        $productImagesMegasoft = $this->getData($endpoint, $paramForm, 'ItemsPhotoInfo');
+
+        dd($productImagesMegasoft[0]);
     }
 }

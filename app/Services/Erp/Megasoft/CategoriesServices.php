@@ -22,7 +22,7 @@ class CategoriesServices extends MegasoftAbstract
         $updatedCategories = [];
 
         $paramForm = [
-            'SiteKey' => MegasoftConstants::SITE_KEY,
+            'SiteKey' => MegasoftConstants::getMegasoftSiteKey(),
         ];
 
         $categoriesMegasoft = $this->getData($endpoint, $paramForm, 'GroupsListItems');

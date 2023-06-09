@@ -101,6 +101,7 @@ export default defineConfig({
                 'resources/scss/light/assets/dashboard/dash_2.scss',
                 'resources/assets/js/dashboard/get_manufacturers.js',
                 'resources/assets/js/dashboard/get_categories.js',
+                'resources/assets/js/dashboard/get_products.js',
                 
                 // --- Elements
                 'resources/scss/light/assets/elements/alert.scss',

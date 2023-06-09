@@ -39,6 +39,11 @@ class Product extends Model
 
     public function manufacturer(): BelongsTo
     {
-        return $this->belongsTo(Manufacturer::class, 'id', 'manufacturer_id');
+        return $this->belongsTo(Manufacturer::class, 'manufacturer_id', 'id');
+    }
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(ProductImages::class);
     }
 }

@@ -16,7 +16,7 @@ abstract class MegasoftAbstract
 
         $response = Http::asForm()
             ->post(
-                MegasoftConstants::URL.$endpoint,
+                MegasoftConstants::getMegasoftUrl().$endpoint,
                 $params
             );
 

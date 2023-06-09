@@ -37,7 +37,7 @@ Route::get('/dashboard/products/{id}', [ProductsDashboardController::class, 'sho
     ->name('dashboard.product.show')
     ->middleware('auth:sanctum');
 
-Route::get('/products/runErpJob', [ProductsDashboardController::class, 'runProductsErpJob'])
+Route::get('/products/runErpJob', [ProductsDashboardController::class, 'runProductsJob'])
     ->name('dashboard.product.run.erp.job')
     ->middleware('auth:sanctum');
 
@@ -70,3 +70,4 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout.index');
 Route::get('/erp/megasoft/manufacturers', [ManufacturersController::class, 'getData'])->name('manufacturers.index');
 Route::get('/erp/megasoft/categories', [CategoriesController::class, 'index'])->name('categories.index');
 Route::get('/erp/megasoft/products', [ProductsController::class, 'index'])->name('products.index');
+Route::get('/erp/megasoft/products/images', [ProductsController::class, 'images'])->name('products.images');

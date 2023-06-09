@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Opencart;
 
 use App\Http\Controllers\Controller;
-use App\Services\Opencart\CategoriesService;
+use App\Services\Store\Opencart\CategoriesService;
 
 class CategoryOpencartController extends Controller
 {
@@ -21,7 +21,7 @@ class CategoryOpencartController extends Controller
     {
 
         $categories = $this->categoriesService->getCategoriesForOpencart();
-        dd($categories[0]['category_description']);
+
         if (empty($categories)) {
 
             return response()->json([

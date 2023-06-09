@@ -35,10 +35,10 @@ class ProductsDashboardController extends Controller
             ]);
     }
 
-    public function runProductsErpJob(Request $request)
+    public function runProductsJob(Request $request)
     {
 
-        Artisan::queue('app:products 2023-01-01');
+        Artisan::queue('app:products --date=2023-01-01');
 
         return response()->json(
             [

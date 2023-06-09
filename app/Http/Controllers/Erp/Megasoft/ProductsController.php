@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 class ProductsController extends Controller
 {
     public ?string $endpointProducts = '/GetProducts';
+    public ?string $endpointProductImages = '/GetItemsPhotoInfo';
 
     public ProductsServices $productsServices;
 
@@ -27,6 +28,26 @@ class ProductsController extends Controller
         $date = $request->input('date') ?? null;
 
         $products = $this->productsServices->createOrUpdateProducts($this->endpointProducts, $date);
+
+        //$addresses = 'adrian.mol@hotmail.com';
+
+        // Mail::raw('test' , function ($m) use ($addresses) {
+        //     $m->to($addresses)->subject('subject');
+        // });
+
+        return response()->json([
+            'totalItems' => count($products['updated']) + count($products['created']),
+            'totalUpdated' => count($products['updated']),
+            'totalCreated' => count($products['created']),
+            'data' => $products,
+        ]);
+    }
+
+    public function images(Request $request)
+    {
+        $date = $request->input('date') ?? null;
+
+        $products = $this->productsServices->getProductImages($this->endpointProductImages, $date);
 
         //$addresses = 'adrian.mol@hotmail.com';
 

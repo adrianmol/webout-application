@@ -45,7 +45,8 @@
     <!-- /BREADCRUMB -->
     <div class="col-12 d-flex justify-content-sm-end justify-content-center">
         <div class="" id="erp-result"></div>
-        <button class="btn btn-primary mb-2 me-4" id="getManufacuters"> Get manufacturers (ERP)</button>
+        <button class="btn btn-primary mb-2 me-4" id="getManufacturers"> Get manufacturers (ERP)</button>
+        <button class="btn btn-primary mb-2 me-4" id="sendManufacturers"> Send manufacturers (Store)</button>
         {{-- <button class="btn btn-secondary mb-2 me-4">Secondary</button>    --}}
 
 

@@ -45,6 +45,7 @@
     <div class="col-12 d-flex justify-content-sm-end justify-content-center">
         <div class="" id="erp-result"></div>
         <button class="btn btn-primary mb-2 me-4" id="getCategories">Get categories (ERP)</button>
+        <button class="btn btn-primary mb-2 me-4" id="sendCategories">Send categories (Store)</button>
         {{-- <button class="btn btn-secondary mb-2 me-4">Secondary</button>    --}}
     </div>
     <div class="row layout-top-spacing">

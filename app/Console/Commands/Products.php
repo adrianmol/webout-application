@@ -3,17 +3,19 @@
 namespace App\Console\Commands;
 
 use App\Repositories\ProductsRepository;
-use App\Services\Erp\Megasoft\ProductsServices;
+use App\Services\Erp\Megasoft\ProductsServices as ProductsMegasoftServices;
+use App\Services\Store\Opencart\ProductsService as ProductsOpencartServices; 
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Console\Isolatable;
 
-class Products extends Command
+class Products extends Command implements Isolatable
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:products {date}';
+    protected $signature = 'app:products {--date=}';
 
     /**
      * The console command description.
@@ -27,15 +29,30 @@ class Products extends Command
      */
     public function handle()
     {
-        $endpointProducts = '/GetProducts';
-        $date = $this->argument('date') ?? '';
+        $startTime = microtime(true);
+        $endpointProductsMegasoft = '/GetProducts';
+        $endpointProductsOpencart = '/prismaProducts';
 
+        $date = $this->option('date') ?? '';
+
+        $this->info($date);
         $productsRepository = new ProductsRepository();
-        $productsServices = new ProductsServices($productsRepository);
+        $productsMegasoftServices = new ProductsMegasoftServices($productsRepository);
+        $productsOpencartServices = new ProductsOpencartServices();
 
-        $response = $productsServices->createOrUpdateProducts($endpointProducts, $date);
-
-        $this->info('Updated items: '.count($response['updated']));
-        $this->info('Created items: '.count($response['created']));
+        $MegasoftResponse = $productsMegasoftServices->createOrUpdateProducts($endpointProductsMegasoft, $date);
+        $endTime = microtime(true);
+        $this->info('(Megasoft Execution Time '.$endTime - $startTime.'sec) Updated items: '.count($MegasoftResponse['updated'] ?? 0));
+        $this->info('(Megasoft Execution Time '.$endTime - $startTime.'sec) Created items: '.count($MegasoftResponse['created'] ?? 0));
+        
+        
+        $productsOpencart = $productsOpencartServices->getProductsForOpencart($date);
+        $opencartResponse = $productsOpencartServices->setData($endpointProductsOpencart,$productsOpencart->toArray());
+        
+        if(!$opencartResponse->isEmpty()){
+            $endTime = microtime(true);
+            $this->info('(Opencart Execution Time '.$endTime - $startTime.'sec) Updated items: ' . $opencartResponse['data']['total_update']);
+            $this->info('(Opencart Execution Time '.$endTime - $startTime.'sec) Created items: ' . $opencartResponse['data']['total_insert']);
+        }
     }
 }
