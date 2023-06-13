@@ -30,6 +30,6 @@ class Manufacturers extends Command
 
         $manufacturersServices = new ManufacturersServices();
         $response = $manufacturersServices->getManufacturers($endpointManufacturers);
-        echo  'Updated items: '.count($response);
+        echo 'Updated items: '.count($response);
     }
 }

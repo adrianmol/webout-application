@@ -57,10 +57,15 @@ class ProductsServices extends MegasoftAbstract
                     );
                 } else {
 
-                    $createdProducts[] = $this->productsRepository->createProductAndDescription(
+                    $product = $this->productsRepository->createProductAndDescription(
                         $validProduct,
                         $validProductDescription
                     );
+
+                    $createdProductImages = $this->productsRepository->createProductImages($product['id'], $product);
+
+                    $createdProducts[] = $product;
+                    
                 }
             }
         });
@@ -71,7 +76,7 @@ class ProductsServices extends MegasoftAbstract
         ];
     }
 
-    public function getProductImages(string $endpoint, string $date = null): ?array
+    public function getProductImagesInformation(string $endpoint, string $date = null): ?array
     {
         $date = $date ?: date('m-d-Y H:m', strtotime('-4 hours'));
         $paramForm = [];
@@ -86,6 +91,24 @@ class ProductsServices extends MegasoftAbstract
 
         $productImagesMegasoft = $this->getData($endpoint, $paramForm, 'ItemsPhotoInfo');
 
-        dd($productImagesMegasoft[0]);
+        $productImagesMegasoft->each(function ($productMegasoft) use (
+            &$updatedProducts,
+            &$createdProducts
+        ) {
+            $productId = $this->productsRepository->getProductModel($productMegasoft['ItemCode']);
+            
+            if(isset($productId) && !empty($productId)) {
+
+                $validProductImagesInfo = $this->productsRepository->prepareProductImagesInfo($productId?->erp_product_id, $productMegasoft);
+                $updated = $this->productsRepository->updateProductImages($validProductImagesInfo->get('model'), $validProductImagesInfo->toArray());
+
+                $updatedProducts[] = $validProductImagesInfo->toArray();
+            }
+        });
+
+        return [
+            'updated' => $updatedProducts,
+            'created' => $createdProducts,
+        ];
     }
 }

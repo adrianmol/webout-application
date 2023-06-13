@@ -9,7 +9,7 @@ class MegasoftConstants
     public const ERP_URL = 'erp.url';
 
     public const SITE_KEY = 'erp.key';
-    
+
     public static function getMegasoftUrl()
     {
 

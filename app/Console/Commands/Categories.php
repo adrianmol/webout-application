@@ -28,7 +28,7 @@ class Categories extends Command
      */
     public function handle()
     {
-        
+
         $endpointCategories = '/GetItemGroups';
         $endpointOpencartCategories = '/prismaCategories';
 
@@ -36,7 +36,7 @@ class Categories extends Command
         $categoriesMegasoftServices = new CategoriesMegasoftServices($repoCategories);
 
         $response = $categoriesMegasoftServices
-        ->createOrUpdateCategories($endpointCategories);
+            ->createOrUpdateCategories($endpointCategories);
 
         $this->info('(Megasoft) Created items: '.count($response['created']));
         $this->info('(Megasoft) Updated items: '.count($response['updated']));
@@ -45,12 +45,12 @@ class Categories extends Command
         $categories = $categoriesOpencartService->getCategoriesForOpencart();
 
         $opencartResponse = $categoriesOpencartService
-        ->setData(
-            $endpointOpencartCategories,
-            $categories->toArray()
+            ->setData(
+                $endpointOpencartCategories,
+                $categories->toArray()
             );
 
-        $this->info('(Opencart) Created items: '. $opencartResponse['data']['total_insert']); 
-        $this->info('(Opencart) Updated items: '. $opencartResponse['data']['total_update']);    
+        $this->info('(Opencart) Created items: '.$opencartResponse['data']['total_insert']);
+        $this->info('(Opencart) Updated items: '.$opencartResponse['data']['total_update']);
     }
 }

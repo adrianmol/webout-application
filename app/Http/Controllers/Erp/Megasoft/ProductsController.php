@@ -11,8 +11,9 @@ use Illuminate\Support\Facades\Mail;
 
 class ProductsController extends Controller
 {
-    public ?string $endpointProducts = '/GetProducts';
-    public ?string $endpointProductImages = '/GetItemsPhotoInfo';
+    protected const endpointProducts = '/GetProducts';
+
+    protected const endpointProductImagesInformation = '/GetItemsPhotoInfo';
 
     public ProductsServices $productsServices;
 
@@ -27,7 +28,7 @@ class ProductsController extends Controller
 
         $date = $request->input('date') ?? null;
 
-        $products = $this->productsServices->createOrUpdateProducts($this->endpointProducts, $date);
+        $products = $this->productsServices->createOrUpdateProducts(self::endpointProducts, $date);
 
         //$addresses = 'adrian.mol@hotmail.com';
 
@@ -43,17 +44,11 @@ class ProductsController extends Controller
         ]);
     }
 
-    public function images(Request $request)
+    public function imagesInfo(Request $request)
     {
         $date = $request->input('date') ?? null;
 
-        $products = $this->productsServices->getProductImages($this->endpointProductImages, $date);
-
-        //$addresses = 'adrian.mol@hotmail.com';
-
-        // Mail::raw('test' , function ($m) use ($addresses) {
-        //     $m->to($addresses)->subject('subject');
-        // });
+        $products = $this->productsServices->getProductImagesInformation(self::endpointProductImagesInformation, $date);
 
         return response()->json([
             'totalItems' => count($products['updated']) + count($products['created']),

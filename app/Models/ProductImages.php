@@ -13,6 +13,8 @@ class ProductImages extends Model
         'product_id',
         'model',
         'downloaded',
-        'last_updated'
+        'last_updated',
     ];
+
+    public $timestamps = false;
 }

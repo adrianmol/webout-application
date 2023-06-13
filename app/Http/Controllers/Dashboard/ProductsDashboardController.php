@@ -25,7 +25,7 @@ class ProductsDashboardController extends Controller
         $product = Product::whereId($id)->first();
         $title = $product->descriptions()->first()->name ?? 'Not found';
 
-        $category = Category::find($product->id)->first();
+        $category = Category::find($product->id)?->first();
 
         return view('pages.product.show',
             [

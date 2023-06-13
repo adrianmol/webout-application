@@ -20,6 +20,11 @@ class ProductsRepository
         return Product::where(['erp_product_id' => $productId])->first();
     }
 
+    public function getProductModel(string $model)
+    {
+        return Product::where(['model' => $model])->get()->first();
+    }
+
     public function createProduct(array $productsDetails)
     {
 
@@ -60,6 +65,29 @@ class ProductsRepository
         return $productModel->toArray();
     }
 
+    public function createProductImages(int $productId, array $productDetails)
+    {
+
+        $attributes = [
+            'product_id' => $productId,
+            'model' => $productDetails['model'],
+            'last_updated' => '2020-01-01 00:00:00',
+        ];
+
+        return ProductImages::updateOrCreate($attributes, ['product_id' => $productId]);
+    }
+
+    public function updateProductImages(string $model, array $productDetails)
+    {
+
+        $attributes = [
+            'downloaded'   => 0,
+            'last_updated' => (string) $productDetails['last_updated'],
+        ];
+
+        return ProductImages::where('model', $model)->update($attributes);
+    }
+
     public function prepareProduct(array $productsDetails)
     {
 
@@ -79,18 +107,21 @@ class ProductsRepository
         ]);
     }
 
-    public function createProductImages(int $productId, array $productsDetails)
-    {
-
-        return ProductImages::createOrUpdate($productId, $productsDetails);
-    }
-
     public function prepareProductDescription(int $languageId, array $productsDetails)
     {
         return collect([
             'language_id' => $languageId,
             'name' => Util::isEmpty($productsDetails['ItemDescr']),
             'description' => Util::isEmpty($productsDetails['ItemNotes']),
+        ]);
+    }
+
+    public function prepareProductImagesInfo(int $productId, array $productsDetails)
+    {
+        return collect([
+            'product_id' => $productId,
+            'model'      => Util::isEmpty($productsDetails['ItemCode']),
+            'last_updated' => \DateTime::createFromFormat('m/d/Y  H:i:s A', $productsDetails['ItemPhotoDate'])->format('Y-m-d H:m:s'),
         ]);
     }
 }

@@ -98,7 +98,7 @@
                                 type="text" 
                                 class="form-control" 
                                 id="category" 
-                                value="{{$category->descriptions()->first()->name}} ({{$category->descriptions()->first()->id}})"
+                                value="{{$category?->descriptions()?->first()->name}} ({{$category?->descriptions()?->first()->id}})"
                                 >
                             </div>
                         </div>

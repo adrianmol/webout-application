@@ -46,7 +46,7 @@ abstract class OpencartAbstractService
 
     public function setData(string $endpoint, array $params)
     {
-        
+
         if (empty($endpoint) || empty($params)) {
             return collect();
         }

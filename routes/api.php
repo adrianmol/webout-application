@@ -27,5 +27,5 @@ Route::get('/opencart/manufacturers', [ManufacturerOpencartController::class, 'i
 Route::get('/opencart/categories', [CategoryOpencartController::class, 'index'])
     ->name('api.opencart.category.index');
 
-    Route::get('/opencart/products', [ProductOpencartController::class, 'index'])
+Route::get('/opencart/products', [ProductOpencartController::class, 'index'])
     ->name('api.opencart.product.index');
