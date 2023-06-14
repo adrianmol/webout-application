@@ -28,9 +28,9 @@ class ProductsRepository
     public function checkUpdatedProductImages(array $productInfo)
     {
         return ProductImages::where('model', $productInfo['model'])
-        ->where('last_updated','<', $productInfo['last_updated'])
-        ?->get()
-        ?->first();
+            ->where('last_updated', '<', $productInfo['last_updated'])
+            ?->get()
+            ?->first();
     }
 
     public function createProduct(array $productsDetails)
@@ -87,9 +87,9 @@ class ProductsRepository
 
     public function updateProductImages(string $model, array $productDetails)
     {
-        
+
         $attributes = [
-            'downloaded'   => 0,
+            'downloaded' => 0,
             'last_updated' => (string) $productDetails['last_updated'],
         ];
 
@@ -138,7 +138,7 @@ class ProductsRepository
     {
         return collect([
             'product_id' => $productId,
-            'model'      => Util::isEmpty($productsDetails['ItemCode']),
+            'model' => Util::isEmpty($productsDetails['ItemCode']),
             'last_updated' => \DateTime::createFromFormat('m/d/Y  H:i:s A', $productsDetails['ItemPhotoDate'])->format('Y-m-d H:m:s'),
         ]);
     }

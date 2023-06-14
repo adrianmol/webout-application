@@ -65,7 +65,7 @@ class ProductsServices extends MegasoftAbstract
                     $createdProductImages = $this->productsRepository->createProductImages($product['id'], $product);
 
                     $createdProducts[] = $product;
-                    
+
                 }
             }
         });
@@ -96,19 +96,19 @@ class ProductsServices extends MegasoftAbstract
             &$createdProducts
         ) {
             $productId = $this->productsRepository->getProductModel($productMegasoft['ItemCode']);
-            
-            if(isset($productId) && !empty($productId)) {
+
+            if (isset($productId) && ! empty($productId)) {
 
                 $validProductImagesInfo = $this->productsRepository
-                ->prepareProductImagesInfo(
-                    $productId?->erp_product_id,
-                    $productMegasoft
-                );
+                    ->prepareProductImagesInfo(
+                        $productId?->erp_product_id,
+                        $productMegasoft
+                    );
 
-                if(
+                if (
                     $this->productsRepository
-                    ->checkUpdatedProductImages($validProductImagesInfo->toArray())
-                ){
+                        ->checkUpdatedProductImages($validProductImagesInfo->toArray())
+                ) {
 
                     $updated = $this->productsRepository->updateProductImages($validProductImagesInfo->get('model'), $validProductImagesInfo->toArray());
                     $updatedProducts[] = $validProductImagesInfo->toArray();
@@ -129,17 +129,15 @@ class ProductsServices extends MegasoftAbstract
         $updatedProducts = [];
         $megasoftImages['items'] = [];
         $models = [];
-        
-        $data = $this->productsRepository->getProductImagesForDownload();
 
+        $data = $this->productsRepository->getProductImagesForDownload();
 
         $data->each(function ($image) use (&$megasoftImages, &$models) {
             $models[] = $image->model;
-            $megasoftImages['items'][]['storecode'] =  $image->model;
+            $megasoftImages['items'][]['storecode'] = $image->model;
         });
 
-        if($data->isEmpty())
-        {
+        if ($data->isEmpty()) {
             return [
                 'updated' => $updatedProducts,
                 'created' => $createdProducts,
@@ -147,14 +145,13 @@ class ProductsServices extends MegasoftAbstract
         }
 
         $paramForm = [
-            'SiteKey'    => MegasoftConstants::getMegasoftSiteKey(),
-            'JsonStrWeb' => json_encode($megasoftImages)
+            'SiteKey' => MegasoftConstants::getMegasoftSiteKey(),
+            'JsonStrWeb' => json_encode($megasoftImages),
         ];
 
         $productImagesMegasoft = $this->getData($endpoint, $paramForm, 'ItemImageUpload');
 
-        if(!$productImagesMegasoft->isEmpty())
-        {
+        if (! $productImagesMegasoft->isEmpty()) {
             $updatedProducts = $models;
             $data = $this->productsRepository->updateProductImagesThatHasDownloaded($models);
         }
