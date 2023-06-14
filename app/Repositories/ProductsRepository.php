@@ -25,6 +25,14 @@ class ProductsRepository
         return Product::where(['model' => $model])->get()->first();
     }
 
+    public function checkUpdatedProductImages(array $productInfo)
+    {
+        return ProductImages::where('model', $productInfo['model'])
+        ->where('last_updated','<', $productInfo['last_updated'])
+        ?->get()
+        ?->first();
+    }
+
     public function createProduct(array $productsDetails)
     {
 
@@ -79,13 +87,23 @@ class ProductsRepository
 
     public function updateProductImages(string $model, array $productDetails)
     {
-
+        
         $attributes = [
             'downloaded'   => 0,
             'last_updated' => (string) $productDetails['last_updated'],
         ];
 
         return ProductImages::where('model', $model)->update($attributes);
+    }
+
+    public function getProductImagesForDownload()
+    {
+        return ProductImages::where('downloaded', 0)?->limit(20)?->get();
+    }
+
+    public function updateProductImagesThatHasDownloaded(array $models)
+    {
+        return ProductImages::whereIn('model', $models)->update(['downloaded' => 1]);
     }
 
     public function prepareProduct(array $productsDetails)

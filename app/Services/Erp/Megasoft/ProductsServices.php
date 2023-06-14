@@ -99,12 +99,65 @@ class ProductsServices extends MegasoftAbstract
             
             if(isset($productId) && !empty($productId)) {
 
-                $validProductImagesInfo = $this->productsRepository->prepareProductImagesInfo($productId?->erp_product_id, $productMegasoft);
-                $updated = $this->productsRepository->updateProductImages($validProductImagesInfo->get('model'), $validProductImagesInfo->toArray());
+                $validProductImagesInfo = $this->productsRepository
+                ->prepareProductImagesInfo(
+                    $productId?->erp_product_id,
+                    $productMegasoft
+                );
 
-                $updatedProducts[] = $validProductImagesInfo->toArray();
+                if(
+                    $this->productsRepository
+                    ->checkUpdatedProductImages($validProductImagesInfo->toArray())
+                ){
+
+                    $updated = $this->productsRepository->updateProductImages($validProductImagesInfo->get('model'), $validProductImagesInfo->toArray());
+                    $updatedProducts[] = $validProductImagesInfo->toArray();
+                }
             }
         });
+
+        return [
+            'updated' => $updatedProducts,
+            'created' => $createdProducts,
+        ];
+    }
+
+    public function downloadProductImages(string $endpoint): ?array
+    {
+        $paramForm = [];
+        $createdProducts = [];
+        $updatedProducts = [];
+        $megasoftImages['items'] = [];
+        $models = [];
+        
+        $data = $this->productsRepository->getProductImagesForDownload();
+
+
+        $data->each(function ($image) use (&$megasoftImages, &$models) {
+            $models[] = $image->model;
+            $megasoftImages['items'][]['storecode'] =  $image->model;
+        });
+
+        if($data->isEmpty())
+        {
+            return [
+                'updated' => $updatedProducts,
+                'created' => $createdProducts,
+            ];
+        }
+
+        $paramForm = [
+            'SiteKey'    => MegasoftConstants::getMegasoftSiteKey(),
+            'JsonStrWeb' => json_encode($megasoftImages)
+        ];
+
+        $productImagesMegasoft = $this->getData($endpoint, $paramForm, 'ItemImageUpload');
+
+        if(!$productImagesMegasoft->isEmpty())
+        {
+            $updatedProducts = $models;
+            $data = $this->productsRepository->updateProductImagesThatHasDownloaded($models);
+        }
 
         return [
             'updated' => $updatedProducts,

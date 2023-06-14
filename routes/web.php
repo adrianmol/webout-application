@@ -70,4 +70,5 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout.index');
 Route::get('/erp/megasoft/manufacturers', [ManufacturersController::class, 'getData'])->name('manufacturers.index');
 Route::get('/erp/megasoft/categories', [CategoriesController::class, 'index'])->name('categories.index');
 Route::get('/erp/megasoft/products', [ProductsController::class, 'index'])->name('products.index');
-Route::get('/erp/megasoft/products/imagesInfo', [ProductsController::class, 'imagesInfo'])->name('products.images');
+Route::get('/erp/megasoft/products/imagesInfo', [ProductsController::class, 'imagesInfo'])->name('products.images.information');
+Route::get('/erp/megasoft/products/imagesDownload', [ProductsController::class, 'downloadImages'])->name('products.images.download');

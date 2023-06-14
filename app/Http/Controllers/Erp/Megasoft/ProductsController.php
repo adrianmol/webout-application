@@ -15,6 +15,8 @@ class ProductsController extends Controller
 
     protected const endpointProductImagesInformation = '/GetItemsPhotoInfo';
 
+    protected const endpointProductImagesDownload = '/UploadImageToFtp';
+
     public ProductsServices $productsServices;
 
     public function __construct(
@@ -49,6 +51,19 @@ class ProductsController extends Controller
         $date = $request->input('date') ?? null;
 
         $products = $this->productsServices->getProductImagesInformation(self::endpointProductImagesInformation, $date);
+
+        return response()->json([
+            'totalItems' => count($products['updated']) + count($products['created']),
+            'totalUpdated' => count($products['updated']),
+            'totalCreated' => count($products['created']),
+            'data' => $products,
+        ]);
+    }
+
+    public function downloadImages()
+    {
+
+        $products = $this->productsServices->downloadProductImages(self::endpointProductImagesDownload);
 
         return response()->json([
             'totalItems' => count($products['updated']) + count($products['created']),
