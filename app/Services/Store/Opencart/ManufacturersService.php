@@ -17,6 +17,7 @@ class ManufacturersService extends OpencartAbstractService
                 'sort_order' => $manufacturer->sort_order,
                 'image' => '',
                 'status' => '',
+                'manufacturer_store' => 0,
                 'code' => $manufacturer->code,
                 'updated_at' => $manufacturer->updated_at,
                 'created_at' => $manufacturer->created_at,
