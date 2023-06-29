@@ -44,7 +44,7 @@ class ProductsServices extends MegasoftAbstract
             if (empty($productMegasoft['ItemIdMaster'])) {
 
                 $validProduct = $this->productsRepository->prepareProduct($productMegasoft);
-                $validProductDescription = $this->productsRepository->prepareProductDescription(1, $productMegasoft);
+                $validProductDescription = $this->productsRepository->prepareProductDescription(2, $productMegasoft);
 
                 if (
                     $this->productsRepository

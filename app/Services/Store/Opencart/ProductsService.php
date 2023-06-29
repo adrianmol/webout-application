@@ -9,7 +9,7 @@ class ProductsService extends OpencartAbstractService
     public function getProductsForOpencart(string $date = null)
     {
 
-        $date = $date ?: date('m-d-Y H:m', strtotime('-4 hours'));
+        $date = $date ?: date('Y-m-d H:m', strtotime('-4 hours'));
 
         $products = Product::where('updated_at', '>=', $date)->get()->map(function ($product) {
 
