@@ -151,7 +151,8 @@ class ProductsServices extends MegasoftAbstract
 
         $productImagesMegasoft = $this->getData($endpoint, $paramForm, 'ItemImageUpload');
 
-        if (! $productImagesMegasoft->isEmpty()) {
+        //if (! $productImagesMegasoft->isEmpty()) {
+        if (1) {
             $updatedProducts = $models;
             $data = $this->productsRepository->updateProductImagesThatHasDownloaded($models);
         }

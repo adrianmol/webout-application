@@ -118,6 +118,8 @@ class ProductsRepository
             'manufacturer_id' => Util::isEmpty($productsDetails['ItemManufacturerId']),
             'category_id' => Util::isEmpty($productsDetails['ItemGroupId']),
             'price' => Util::isEmpty($productsDetails['ItemRetail']),
+            'price_with_vat' => Util::isEmpty($productsDetails['ItemRetailVat']),
+            'wholesale_price' => Util::isEmpty($productsDetails['ItemWholesale']),
             'weight' => Util::isEmpty($productsDetails['ItemWeight']),
             'status' => 1,
             'created_at' => \DateTime::createFromFormat('m/d/Y  H:i:s A', $productsDetails['ItemDateCreated'])->format('Y-m-d H:m:s'),

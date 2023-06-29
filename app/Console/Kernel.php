@@ -14,8 +14,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('app:manufacturers')->everyFiveMinutes()->emailOutputTo('adrian.mol@hotmail.com');
-        $schedule->command('app:products 01-01-2023')->everyFiveMinutes()->emailOutputTo('adrian.mol@hotmail.com');
+        $schedule->command('app:manufacturers')->everySixHours();
+        $schedule->command('app:categories')->everyFiveMinutes();
+        $schedule->command('app:products')->everyFiveMinutes();
+        $schedule->command('queue:work')
+            ->everyMinute()
+            ->withoutOverlapping();
     }
 
     /**

@@ -21,6 +21,8 @@ class Product extends Model
         'quantity',
         'manufacturer_id',
         'price',
+        'price_with_vat',
+        'wholesale_price',
         'weight',
         'status',
         'created_at',
