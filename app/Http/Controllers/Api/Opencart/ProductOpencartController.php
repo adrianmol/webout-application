@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Opencart;
 
 use App\Http\Controllers\Controller;
 use App\Services\Store\Opencart\ProductsService;
+use Illuminate\Http\Request;
 
 class ProductOpencartController extends Controller
 {
@@ -17,10 +18,11 @@ class ProductOpencartController extends Controller
         $this->productsService = $productsService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $date = $request->input('date') ?? null;
 
-        $products = $this->productsService->getProductsForOpencart();
+        $products = $this->productsService->getProductsForOpencart($date);
 
         if (empty($products)) {
 
