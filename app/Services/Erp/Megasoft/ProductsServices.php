@@ -146,13 +146,12 @@ class ProductsServices extends MegasoftAbstract
 
         $paramForm = [
             'SiteKey' => MegasoftConstants::getMegasoftSiteKey(),
-            'JsonStrWeb' => json_encode($megasoftImages),
+            'JsonStrWeb' => json_encode($megasoftImages, JSON_UNESCAPED_SLASHES),
         ];
 
         $productImagesMegasoft = $this->getData($endpoint, $paramForm, 'ItemImageUpload');
 
-        //if (! $productImagesMegasoft->isEmpty()) {
-        if (1) {
+        if (! $productImagesMegasoft->isEmpty()) {
             $updatedProducts = $models;
             $data = $this->productsRepository->updateProductImagesThatHasDownloaded($models);
         }
