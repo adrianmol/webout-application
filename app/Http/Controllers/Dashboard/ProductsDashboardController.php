@@ -15,7 +15,6 @@ class ProductsDashboardController extends Controller
         $perPage = $request->get('perPage') ?? 25;
         $model = $request->get('model') ?? null;
 
-        //'model', '5203473213013'
         $products = Product::where(function($sub_query) use ($model){
             if($model){
                 $sub_query->where('model', 'like', $model.'%');
