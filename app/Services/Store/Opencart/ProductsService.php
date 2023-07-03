@@ -59,7 +59,7 @@ class ProductsService extends OpencartAbstractService
                 'date_added' => $product->date_added,
                 'date_modified' => $product->date_modified,
                 'product_category' => $categories,
-                'product_store' => $product->created_at,
+                'product_store' => 0,
                 'product_description' => $descriptions,
             ];
         });
