@@ -13,8 +13,14 @@ class ProductsDashboardController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->get('perPage') ?? 25;
+        $model = $request->get('model') ?? null;
 
-        $products = Product::paginate($perPage)->setPath('products');
+        //'model', '5203473213013'
+        $products = Product::where(function($sub_query) use ($model){
+            if($model){
+                $sub_query->where('model', 'like', $model.'%');
+            }
+        })->paginate($perPage)->setPath('products');
 
         return view('pages.product.index', ['products' => $products]);
     }

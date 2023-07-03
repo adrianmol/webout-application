@@ -1,7 +1,7 @@
 <x-default-layout :scrollspy="true">
 
     <x-slot:pageTitle>
-        
+
     </x-slot>
 
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
@@ -19,16 +19,16 @@
     <x-slot:scrollspyConfig>
         data-bs-spy="scroll" data-bs-target="#navSection" data-bs-offset="100"
     </x-slot>
-    
+
     <x-slot:sideBar>
 
         <!--  BEGIN LOADER  -->
         <x-layout-overlay/>
         <!--  BEGIN SIDEBAR  -->
-        
+
         <x-menu.vertical-menu/>
         <x-navbar.style-vertical-menu/>.
-        <!--  END SIDEBAR  --> 
+        <!--  END SIDEBAR  -->
 
     </x-slot:sideBar>
 
@@ -49,31 +49,37 @@
     </div>
     <div class="row layout-top-spacing" id="product-list">
 
-        @if($products->count())
-         
+
+
         <div id="tableStriped" class="col-lg-12 col-12 layout-spacing">
             <div class="statbox widget box box-shadow">
-
                 <div class="widget-content widget-content-area">
                     <div class="row">
                         <div class="col-12 col-sm-6 d-flex justify-content-sm-start justify-content-center">
                             <div class="d-flex align-items-center mb-2 me-4">
-                                Page: {{$products->currentPage()}} Total items: {{$products->total()}} 
+                                Page: {{$products->currentPage()}} Total items: {{$products->total()}}
                             </div>
                             <div class="btn-group  mb-2 me-4" role="group">
                                 <button id="btndefault6" type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Items per page ({{$products->perPage()}}) <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
                                 <div class="dropdown-menu" aria-labelledby="btndefault6">
-                                    <a href="{{$products->getOptions()['path']}}?perPage=10" class="dropdown-item"><i class="flaticon-home-fill-1 mr-1"></i>10</a>
-                                    <a href="{{$products->getOptions()['path']}}?perPage=25" class="dropdown-item"><i class="flaticon-gear-fill mr-1"></i>25</a>
-                                    <a href="{{$products->getOptions()['path']}}?perPage=50" class="dropdown-item"><i class="flaticon-bell-fill-2 mr-1"></i>50</a>
-                                    <a href="{{$products->getOptions()['path']}}?perPage=100" class="dropdown-item"><i class="flaticon-dots mr-1"></i>100</a>
+                                    <a href="{{Request::fullUrl()}}?perPage=10" class="dropdown-item"><i class="flaticon-home-fill-1 mr-1"></i>10</a>
+                                    <a href="{{Request::fullUrl()}}?perPage=25" class="dropdown-item"><i class="flaticon-gear-fill mr-1"></i>25</a>
+                                    <a href="{{Request::fullUrl()}}?perPage=50" class="dropdown-item"><i class="flaticon-bell-fill-2 mr-1"></i>50</a>
+                                    <a href="{{Request::fullUrl()}}?perPage=100" class="dropdown-item"><i class="flaticon-dots mr-1"></i>100</a>
                                 </div>
                             </div>
-
                         </div>
-
+                        <div class="col-12 col-sm-6 justify-content-end">
+                            <form method="get" class="needs-validation" action= "/dashboard/products">
+                                {{ csrf_field() }}
+                                <div class="input-group search-section">
+                                    <input type="text" class="form-control search-input" placeholder="search by model..." name="model" value="{{request()->get('model')}}">
+                                    <button type="submit" class="btn btn-primary search-btn">Search</button>
+                                </div>
+                            <form/>
+                        </div>
                     </div>
-            
+                    @if($products->count())
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered">
                             <thead>
@@ -106,13 +112,13 @@
                                     <td>
                                         <span class="table-inner-text" >{{$product->descriptions->first()->name}}</span>
                                     </td>
-                                    <td class="text-center">{{$product->parent_id}} 
+                                    <td class="text-center">{{$product->parent_id}}
                                         <div class="form-check form-switch form-check-inline">
-                                            <input 
-                                            class="form-check-input" 
-                                            type="checkbox" 
-                                            role="switch" 
-                                            id="flexSwitchCheckChecked" 
+                                            <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            role="switch"
+                                            id="flexSwitchCheckChecked"
                                             @if ($product->status == 1) checked @endif
                                             disabled
                                             >
@@ -166,10 +172,10 @@
             <div class="alert alert-light-warning alert-dismissible fade show border-0 mb-4" role="alert"> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-bs-dismiss="alert"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button> <strong>Warning!</strong> No products </div>
         </div>
         @endif
-        
+
         </div>
     </div>
-    
+
     <!--  BEGIN CUSTOM SCRIPTS FILE  -->
     <x-slot:footerFiles>
         <script src="{{asset('plugins/notification/snackbar/snackbar.min.js')}}"></script>
