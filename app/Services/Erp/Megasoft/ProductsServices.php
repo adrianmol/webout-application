@@ -50,11 +50,14 @@ class ProductsServices extends MegasoftAbstract
                     $this->productsRepository
                         ->getProductByErpProductId($validProduct->get('erp_product_id'))
                 ) {
-                    $updatedProducts[] = $this->productsRepository->updateProductAndDescription(
+                    $product = $this->productsRepository->updateProductAndDescription(
                         $validProduct->get('erp_product_id'),
                         $validProduct,
                         $validProductDescription
                     );
+
+                    $updatedProductImages = $this->productsRepository->updateProductImagesModel($product['id'], $product);
+                    $updatedProducts[] = $product;
                 } else {
 
                     $product = $this->productsRepository->createProductAndDescription(

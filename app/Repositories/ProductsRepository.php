@@ -96,6 +96,16 @@ class ProductsRepository
         return ProductImages::where('model', $model)->update($attributes);
     }
 
+    public function updateProductImagesModel(int $productId, array $productDetails)
+    {
+
+        $attributes = [
+            'model' => $productDetails['model']
+        ];
+
+        return ProductImages::where('product_id', $productId)->update($attributes);
+    }
+
     public function getProductImagesForDownload()
     {
         return ProductImages::where('downloaded', 0)?->limit(20)?->get();
